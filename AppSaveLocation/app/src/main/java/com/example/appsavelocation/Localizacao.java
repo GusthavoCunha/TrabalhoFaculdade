@@ -4,13 +4,13 @@ public class Localizacao {
 
     private int id;
     private String nome;
-    private int latitude, longitude;
+    private double latitude, longitude;
 
     public Localizacao(){
 
     }
 
-    public Localizacao( String nome, int latitude, int longitude){
+    public Localizacao( String nome, double latitude, double longitude){
 
         this.setNome(nome);
         this.setLatitude(latitude);
@@ -19,7 +19,7 @@ public class Localizacao {
     }
 
 
-    public Localizacao(int id, String nome, int latitude, int longitude){
+    public Localizacao(int id, String nome, double latitude, double longitude){
 
         this.setId(id);
         this.setNome(nome);
@@ -30,9 +30,13 @@ public class Localizacao {
     }
 
 
+    public double getLatitude() {
+        return latitude;
+    }
 
-
-
+    public double getLongitude() {
+        return longitude;
+    }
 
     public int getId() {
         return id;
@@ -50,19 +54,15 @@ public class Localizacao {
         this.nome = nome;
     }
 
-    public int getLatitude() {
-        return latitude;
-    }
 
-    public void setLatitude(int latitude) {
+
+    public void setLatitude(double latitude) {
         this.latitude = latitude;
     }
 
-    public int getLongitude() {
-        return longitude;
-    }
 
-    public void setLongitude(int longitude) {
+
+    public void setLongitude(double longitude) {
         this.longitude = longitude;
     }
 }

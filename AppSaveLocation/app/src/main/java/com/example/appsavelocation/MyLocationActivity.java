@@ -9,6 +9,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import android.Manifest;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Criteria;
 import android.location.Location;
@@ -63,7 +64,11 @@ public class MyLocationActivity extends AppCompatActivity
                 (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        acao = getIntent().getStringExtra("acao");
+        Intent intent = new Intent(MyLocationActivity.this, DialogLayout.class);
+        intent.putExtra("acao", "novo");
+
+       acao = getIntent().getStringExtra("acao");
+
 
         //    setContentView(R.layout.content_layout_id);
 
@@ -180,16 +185,12 @@ public class MyLocationActivity extends AppCompatActivity
 
         final Dialog dialog = new Dialog(MyLocationActivity.this);
         dialog.setContentView(R.layout.dialog);
-        // dialog.setTitle("Custom Dialog");
 
-        // set values for custom dialog components - text, image and button
         TextView text = (TextView) dialog.findViewById(R.id.textTitleDialog);
         text.setText("Salvar Localização");
 
         final View customLayout = getLayoutInflater().inflate(R.layout.dialog, null);
 
-
-    //    etNomee = findViewById(R.id.etNome);
 
         tvLat = (TextView)dialog.findViewById(R.id.tvLatitude);
         tvLat.setText(String.valueOf(latitude));
@@ -200,27 +201,19 @@ public class MyLocationActivity extends AppCompatActivity
          etNomee = (EditText) dialog.findViewById(R.id.etNome);
           etNomee.setText(findViewById(R.id.etNome));
 
-//        TextView lat = (TextView) dialog.findViewById(R.id.tvLatitude);
-//        lat.setText(String.valueOf(latitude));
-
-//        TextView lon = (TextView) dialog.findViewById(R.id.tvLongitude);
-//        lon.setText(String.valueOf(longitude));
 
         dialog.show();
 
-
+/*
 
         Button acceptButton = (Button) dialog.findViewById(R.id.acceptButton);
         acceptButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-          //      EditText editText = customLayout.findViewById(R.id.etNome);
-          //     Toast.makeText(MyLocationActivity.this, editText.getText().toString(), Toast.LENGTH_SHORT).show();
-            // LocalizacaoDAO.inserir();
 
-                salvar();
+
             }
-        });
+        }); */
 
         Button declineButton = (Button) dialog.findViewById(R.id.declineButton);
         // if decline button is clicked, close the custom dialog
@@ -240,30 +233,8 @@ public class MyLocationActivity extends AppCompatActivity
 
 
 
-    private void salvar(){
-        if( etNomee.getText().toString().isEmpty() || etNomee == null) {
-            Toast.makeText(this,"Todos os campos devem ser preenchidos!", Toast.LENGTH_SHORT).show();
 
-        }else {
-            if (acao.equals("novo")) {
-                localizacao = new Localizacao();
-            }
 
-            localizacao.setNome( etNomee.getText().toString());
-            localizacao.setLongitude(Integer.parseInt(tvLon.getText().toString()));
-            localizacao.setLatitude(Integer.parseInt(tvLat.getText().toString()));
-
-            if( acao.equals("editar")){
-                LocalizacaoDAO.editar(localizacao, this);
-                finish();
-            }else{
-                LocalizacaoDAO.inserir( localizacao, this);
-                etNomee.setText("");
-                tvLon.setText("");
-                tvLat.setText(" ");
-            }
-        }
-    }
 
 
 

@@ -52,4 +52,63 @@ public class LocalizacaoDAO {
 
     }
 
+
+    public static List<Localizacao> getLocalizacao(Context context){
+
+        List<Localizacao> lista = new ArrayList<>();
+
+        Banco banco = new Banco(context);
+        SQLiteDatabase db = banco.getReadableDatabase();
+
+        Cursor cursor = db.rawQuery( " SELECT * FROM filme ORDER BY nome ", null );
+
+
+        if ( cursor.getCount() > 0 ) {
+
+            cursor.moveToFirst();
+
+            do{
+                Localizacao localizacao = new Localizacao();
+                localizacao.setId(cursor.getInt(0));
+                localizacao.setNome(cursor.getString(1));
+                localizacao.setLongitude( cursor.getDouble(2) );
+                localizacao.setLatitude( cursor.getDouble(3) );
+
+                lista.add( localizacao );
+
+            }while( cursor.moveToNext() );
+
+        }
+
+        return lista;
+    }
+
+
+    public static Localizacao getLocalizacaoById(Context context, int id) {
+
+        Banco banco = new Banco(context);
+        SQLiteDatabase db = banco.getReadableDatabase();
+
+        Cursor cursor = db.rawQuery(" SELECT * FROM filme WHERE id = " + id, null);
+
+        if (cursor.getCount() > 0) {
+
+            cursor.moveToFirst();
+
+            Localizacao localizacao = new Localizacao();
+            localizacao.setId(cursor.getInt(0));
+            localizacao.setNome(cursor.getString(1));
+            localizacao.setLongitude( cursor.getDouble(2) );
+            localizacao.setLatitude( cursor.getDouble(3) );
+
+            return localizacao;
+        } else {
+            return null;
+        }
+    }
+
+
+
+
+
 }
